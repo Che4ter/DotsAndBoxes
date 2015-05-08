@@ -24,4 +24,27 @@ public class PlayGround extends JFrame
     
     
     //Methods
+    public void generatePlayGround(final int pWidth, final int pHeigth)
+    {
+        
+    }
+    
+    public int[] convertCordToPixel(final int pCordX, final int pCordY)
+    {
+        
+        return null;
+    }
+
+    public int[] convertPixelToCord(final int pPixX, final int pPixY)
+    {
+        
+        return null;
+    }
+    
+    
+            
+            
+            
+            
+            
 }
