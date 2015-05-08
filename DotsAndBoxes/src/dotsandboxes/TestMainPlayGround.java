@@ -5,10 +5,22 @@
  */
 package dotsandboxes;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Arakis
  */
 public class TestMainPlayGround {
-    
+    public static void main(String[] args)
+    {
+        JFrame frame = new JFrame("PlayGround Sandbox");
+        
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        frame.add(new PlayGround());
+        
+        frame.pack();
+        frame.setVisible(true);
+    }
 }
