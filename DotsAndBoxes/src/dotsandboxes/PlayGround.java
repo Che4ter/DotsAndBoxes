@@ -5,13 +5,14 @@
  */
 package dotsandboxes;
 
-import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Arakis
  */
-public class PlayGround extends JFrame
+public class PlayGround extends JPanel
 {
     
     //Attributes
@@ -19,7 +20,7 @@ public class PlayGround extends JFrame
     //Konstruktor
     public PlayGround()
     {
-        
+        this.add(new JLabel("Label Test"));
     }
     
     
