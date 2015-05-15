@@ -36,7 +36,7 @@ public class Controller extends JFrame{
     private JLabel players;
     private JLabel points;
     private JPanel informationPanel;
-    private JPanel playGroundPanel;
+    private PlayGround playGroundPanel;
     private Canvas canvas;
     
     
@@ -45,7 +45,7 @@ public class Controller extends JFrame{
         super("Dots and Boxes");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-        setSize(500, 500);
+        setMinimumSize(new Dimension(500, 500));
         
         filemenu = new JMenu("File");
         menubar = new JMenuBar();
@@ -53,12 +53,9 @@ public class Controller extends JFrame{
         filemenu.add(game);
         menubar.add(filemenu);
         
-        playGroundPanel = new JPanel();
-        canvas = new Canvas();
-        canvas.setBackground(Color.white);
-        canvas.setVisible(true);
-        canvas.setSize(500,350);
-        playGroundPanel.add(canvas);
+        playGroundPanel = new PlayGround(4, 4);
+
+        
         
         informationPanel = new JPanel();
         informationPanel.setLayout(new GridLayout(3,2));   
@@ -89,7 +86,7 @@ public class Controller extends JFrame{
 
         
         setVisible(true);
-        
+        this.pack();
     }
     
     public void test(){
