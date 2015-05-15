@@ -6,11 +6,12 @@
 package dotsandboxes;
 
 import java.awt.BorderLayout;
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
@@ -18,17 +19,18 @@ import javax.swing.JPanel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JTextField;
-
 /**
  *
  * @author mario_000
  */
-public class Controller extends JFrame{
+public class Controller extends JFrame implements ActionListener{
     
-    private JMenu filemenu;
-    private JMenuBar menubar;
-    private JMenuItem game; 
+    private final JMenu filemenu;
+    private final JMenuBar menubar;
+    private final JMenuItem newLocalGame;
+    private final JMenuItem newNetworkGame;
+    private final JMenuItem saveGame;
+    private final JMenuItem closeGame;
     private JLabel playerLabel1;
     private JLabel playerLabel2;
     private JLabel pointsPlayer1;
@@ -37,7 +39,6 @@ public class Controller extends JFrame{
     private JLabel points;
     private JPanel informationPanel;
     private PlayGround playGroundPanel;
-    private Canvas canvas;
     
     
     public Controller(){
@@ -49,13 +50,30 @@ public class Controller extends JFrame{
         
         filemenu = new JMenu("File");
         menubar = new JMenuBar();
-        game = new JMenuItem("new Game");
-        filemenu.add(game);
+        newLocalGame = new JMenuItem("New local Game");
+        newNetworkGame = new JMenuItem("new network Game");
+        saveGame =  new JMenuItem("Save Game");
+        closeGame = new JMenuItem("Close Game");
+        
+        filemenu.add(newLocalGame);
+        filemenu.add(newNetworkGame);
+        filemenu.add(saveGame);
+        filemenu.add(closeGame);
         menubar.add(filemenu);
+        add(menubar, BorderLayout.NORTH);
         
-        playGroundPanel = new PlayGround(4, 4);
+        newLocalGame.addActionListener(this);
+        newNetworkGame.addActionListener(this);
+        saveGame.addActionListener(this);
+        closeGame.addActionListener(this);
 
-        
+        setVisible(true);
+        this.pack();
+    }
+    
+    public void newLocalGame(){
+
+        playGroundPanel = new PlayGround(4, 4);     
         
         informationPanel = new JPanel();
         informationPanel.setLayout(new GridLayout(3,2));   
@@ -79,19 +97,41 @@ public class Controller extends JFrame{
 
         
         
-        add(menubar, BorderLayout.NORTH);
+
         add(informationPanel, BorderLayout.CENTER);
         add(playGroundPanel, BorderLayout.SOUTH);
         
 
-        
         setVisible(true);
         this.pack();
-    }
-    
-    public void test(){
-
-         
         
         }
+        
+        @Override
+        public void actionPerformed(ActionEvent e){
+        
+        if(e.getSource() == this.newLocalGame){
+        newLocalGame();
+        }
+        
+        if(e.getSource() == this.newNetworkGame){
+        
+            
+        }
+        
+        if(e.getSource() == this.saveGame){
+        
+            
+            
+        }
+        
+        if(e.getSource() == this.closeGame){
+        
+            System.exit(0); //Close program
+            this.dispose(); //Close window
+            this.setVisible(false); //Hide window
+
+        }
+        
+    }
 }
