@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dotsandboxes;
+package dotsandboxes.PlayGround;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,6 +22,7 @@ public class PlayGround extends JPanel
 {
     
     //Attributes
+    
     
     //Konstruktor
     public PlayGround()
