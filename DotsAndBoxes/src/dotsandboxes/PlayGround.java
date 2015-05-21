@@ -9,7 +9,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Event;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,101 +24,99 @@ import javax.swing.JPanel;
  *
  * @author Arakis
  */
-public class PlayGround extends JPanel
-{
+public class PlayGround extends JPanel{
     //Attributes
-    final int SIZE_POINT        = 20;
-    final int SIZE_PADDING      = 50;
-    final int SIZE_LINE_LENGTH  = 60;
-    final int SIZE_LINE_HEIGTH  = 6;
+    private final int pxPadding = 20;
+    private final int pxDotDiameter = 14;
+    private final int pxLineHeight = 7;
+    private final int pxLineWidth = 50;
     
-    int mPointNumberX =0;
-    int mPointNumberY=0;
+    
+    //int mPointNumberX = 0;
+    //int mPointNumberY = 0;
+    
+    private int mDotCountX = 0;
+    private int mDotCountY = 0;
+    private int mCurrentState = 1;
+    
+    
+    private List<Drawable> playGroundElements = new ArrayList<>();
+
     //Konstruktor
-    public PlayGround(final int pWidth, final int pHeigth)
-    {
-        mPointNumberX=pWidth;
-        mPointNumberY=pHeigth;
+    public PlayGround(final int pDotCountX, final int pDotCountY) {
+        mDotCountX = pDotCountX;
+        mDotCountY = pDotCountY;
+
+        this.setPreferredSize(new Dimension(this.getWidth(pDotCountX), this.getHeight(pDotCountY)));
+
+        System.out.println(this.getWidth(pDotCountX));
+        System.out.println(this.getHeight(pDotCountY));
         
-        this.setPreferredSize(new Dimension(this.getPanelWidth(pWidth), this.getPanelHeigth(pHeigth)));        
+        this.addMouseListener(new MouseAdapter()
+        {
+          @Override
+          public void mouseClicked(MouseEvent e)
+          {
+            for(Drawable element : playGroundElements)
+            {
+                if(element.isItMe(e.getX(), e.getY()))
+                {
+                    element.setState(mCurrentState);
+                    repaint();
+                    break;
+                }
+            }
+          }
+        });
     }
-    
+
+    //Methods
+    public void generatePlayGround() {
+        //Generate Horizontal Line
+        for(int x = 0; x < mDotCountX - 1; x++)
+        {
+            for(int y = 0; y < mDotCountY; y++)
+            {
+                playGroundElements.add(new Line(this.pxPadding + (x * pxLineWidth), this.pxPadding + (y * pxLineWidth) - (this.pxLineHeight / 2), this.pxLineWidth ,this.pxLineHeight));
+            }
+        }
+
+        //Generate Vertical Line
+        for(int x = 0; x < mDotCountX; x++)
+        {
+            for(int y = 0; y < mDotCountY - 1; y++)
+            {
+                playGroundElements.add(new Line(this.pxPadding + (x * pxLineWidth) - (this.pxLineHeight / 2), this.pxPadding + (y * pxLineWidth), this.pxLineHeight ,this.pxLineWidth));
+            }
+        }
+        
+        //Generate Dots
+        for(int x = 0; x < mDotCountX; x++)
+        {
+            for(int y = 0; y < mDotCountY; y++)
+            {
+                playGroundElements.add(new Dot(this.pxPadding + x * pxLineWidth, this.pxPadding + y * pxLineWidth, this.pxDotDiameter));
+            }
+        }
+    }
 
     @Override
-    public void paintComponent(Graphics g) 
+    public void paintComponent(Graphics g)
     {
-        super.paintComponent(g);
-        generatePlayGround(g);
-    }
-    
-    
-    //Methods
-    public void generatePlayGround( Graphics g)
-    {
-        int x=SIZE_PADDING;
-        int y=SIZE_PADDING;
-        
-      
-        for(int i=0;i<mPointNumberY;i++)
+        for(Drawable element : playGroundElements)
         {
-            for(int j=0;j<mPointNumberX;j++)
-            {
-           
-                drawPoint(x,y,g);
-                x+=(SIZE_POINT)+SIZE_LINE_LENGTH;
-            }
-            y+=(SIZE_POINT)+SIZE_LINE_LENGTH;
-            x=SIZE_PADDING;
+            element.draw(g);
         }
-    
-    
     }
     
-    private void drawPoint(final int pX, final int pY,Graphics g)
+    public int getWidth(final int newDotCountX)
     {
-        Graphics2D graphics = (Graphics2D)g;
-        graphics.setColor(Color.red);
-        graphics.fillOval(pX,pY,SIZE_POINT,SIZE_POINT);   
+        return (2 * this.pxPadding) + ((newDotCountX - 1) * pxLineWidth);
     }
     
-    private void drawLine(int pX,int pY,Graphics g)
+    public int getHeight(final int newDotCountY)
     {
-        Graphics2D graphics = (Graphics2D)g;
-        pY=(SIZE_POINT-SIZE_LINE_HEIGTH)/2;
-        pX+=2;
-        
-        graphics.setColor(Color.red);
-        graphics.fillRect(pX, pY,SIZE_LINE_LENGTH,SIZE_LINE_HEIGTH-4);   
-    }
-    
-    
-    public int[] convertCordToPixel(final int pCordX, final int pCordY)
-    {
-        
-        return null;
+        return (2 * this.pxPadding) + ((newDotCountY - 1) * pxLineWidth);
     }
 
-    public int[] convertPixelToCord(final int pPixX, final int pPixY)
-    {
-        
-        return null;
-    }
-    
-    private int getPanelHeigth(final int pHeigth)
-    {
-        return(( 2 * this.SIZE_PADDING) + (pHeigth * this.SIZE_POINT) + ((pHeigth - 1) * this.SIZE_LINE_LENGTH));
-    }
-
-    private int getPanelWidth(final int pWidth)
-    {
-        return 2 * this.SIZE_PADDING + (pWidth * this.SIZE_POINT) + (pWidth - 1) * this.SIZE_LINE_LENGTH;
-    
-}
-    
-    
-            
-            
-            
-            
-            
 }

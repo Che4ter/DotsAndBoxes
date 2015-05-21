@@ -20,10 +20,10 @@ public class TestMainPlayGround {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         frame.add(play);
-
-        //frame.pack();
-        frame.setVisible(true);
-
+        play.generatePlayGround();
         frame.pack();
+        frame.setVisible(true);
+        
+        //frame.pack();
     }
 }
