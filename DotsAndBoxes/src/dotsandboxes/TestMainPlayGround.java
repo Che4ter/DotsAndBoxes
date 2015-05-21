@@ -5,6 +5,8 @@
  */
 package dotsandboxes;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 
 /**
@@ -16,6 +18,10 @@ public class TestMainPlayGround {
     {
         JFrame frame = new JFrame("PlayGround Sandbox");
         PlayGround play = new PlayGround(4, 4);
+        
+        TestNonsense test = new TestNonsense();
+        test.generateBoxes(4,4);
+        
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         

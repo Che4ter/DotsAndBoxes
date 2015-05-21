@@ -16,19 +16,26 @@ import java.awt.Graphics;
  */
 public class Line implements Drawable{
     //Field
-    private int state = 0; //0 = neutral, 1 = Player 1, 2 = Player 2
-    private int posX = 0;
-    private int posY = 0;
-    private int height = 0;
-    private int width = 0;
+    private int mState = 0; //0 = neutral, 1 = Player 1, 2 = Player 2
+    private int mPosX = 0;
+    private int mPosY = 0;
+    private int mHeight = 0;
+    private int mWidth = 0;
+    private int mBoxPosition = 0;
+    private int mBoxNumber = 0;
     
     //Konstruktor
+    public Line()
+    {
+        
+    }
+            
     public Line(final int newPosX, final int newPosY, final int newWidth, final int newHeight)
     {
-        this.posX = newPosX;
-        this.posY = newPosY;
-        this.height = newHeight;
-        this.width = newWidth;
+        this.mPosX = newPosX;
+        this.mPosY = newPosY;
+        this.mHeight = newHeight;
+        this.mWidth = newWidth;
     }
     
     //Methods
@@ -38,7 +45,7 @@ public class Line implements Drawable{
         Color fillColor;
         Color borderColor;
         
-        switch(this.state)
+        switch(this.mState)
         {
             case 1:
                 fillColor = Color.BLUE;
@@ -55,26 +62,26 @@ public class Line implements Drawable{
         }
         
         g.setColor(fillColor);
-        g.fillRect(this.posX, this.posY, this.width, this.height);
+        g.fillRect(this.mPosX, this.mPosY, this.mWidth, this.mHeight);
         g.setColor(borderColor);
-        g.drawRect(this.posX, this.posY, this.width, this.height);
+        g.drawRect(this.mPosX, this.mPosY, this.mWidth, this.mHeight);
     }
     
     @Override
     public void setState(final int newState)
     {
-        this.state = newState;
+        this.mState = newState;
     }
     
     @Override
     public int getState()
     {
-        return this.state;
+        return this.mState;
     }
     
     @Override
     public boolean isItMe(final int newMouseX, final int newMouseY)
     {
-        return ((this.posX < newMouseX && newMouseX < (this.posX + this.width)) && (this.posY < newMouseY && newMouseY < (this.posY + this.height)));
+        return ((this.mPosX < newMouseX && newMouseX < (this.mPosX + this.mWidth)) && (this.mPosY < newMouseY && newMouseY < (this.mPosY + this.mHeight)));
     }
 }

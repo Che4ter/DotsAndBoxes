@@ -5,19 +5,12 @@
  */
 package dotsandboxes;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Event;
-import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -49,9 +42,6 @@ public class PlayGround extends JPanel{
 
         this.setPreferredSize(new Dimension(this.getWidth(pDotCountX), this.getHeight(pDotCountY)));
 
-        System.out.println(this.getWidth(pDotCountX));
-        System.out.println(this.getHeight(pDotCountY));
-        
         this.addMouseListener(new MouseAdapter()
         {
           @Override
@@ -69,13 +59,12 @@ public class PlayGround extends JPanel{
 
           }
         });
-        
     }
-    
+    /*
     public void chooseLine(){
-        
-
     }
+    */
+    
     //Methods
     public void generatePlayGround() {
         //Generate Horizontal Line
