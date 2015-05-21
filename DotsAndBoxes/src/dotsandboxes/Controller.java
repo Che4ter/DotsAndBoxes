@@ -45,11 +45,12 @@ public class Controller extends JFrame implements ActionListener{
     
     
     public Controller(){
-    
+        
         super("Dots and Boxes");
+        
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-        setMinimumSize(new Dimension(500, 500));
+        //setMinimumSize(new Dimension(500, 500));
         
         filemenu = new JMenu("File");
         menubar = new JMenuBar();
@@ -75,10 +76,24 @@ public class Controller extends JFrame implements ActionListener{
     }
     
     public void newLocalGame(){
-
-        playGroundPanel = new PlayGround(4, 4);     
         
-        informationPanel = new JPanel();
+        generateInformationPanel();
+        generatePlayGroundPanel();
+
+        setVisible(true);        
+        this.pack();
+        }
+        
+        public void generatePlayGroundPanel(){
+    
+        playGroundPanel = new PlayGround(4, 4);
+        playGroundPanel.generatePlayGround();
+        add(playGroundPanel, BorderLayout.SOUTH);
+    }
+        
+        public void generateInformationPanel(){
+    
+         informationPanel = new JPanel();
         informationPanel.setLayout(new GridLayout(3,3));   
         
         players = new JLabel("Players");
@@ -103,19 +118,9 @@ public class Controller extends JFrame implements ActionListener{
         informationPanel.add(pointsPlayer1);
         informationPanel.add(moveP2Label);
         informationPanel.add(playerLabel2);
-        informationPanel.add(pointsPlayer2);       
-
-        
-        
-
+        informationPanel.add(pointsPlayer2);
         add(informationPanel, BorderLayout.CENTER);
-        add(playGroundPanel, BorderLayout.SOUTH);
-        
-
-        setVisible(true);
-        this.pack();
-        
-        }
+    }
         
         @Override
         public void actionPerformed(ActionEvent e){
@@ -144,4 +149,6 @@ public class Controller extends JFrame implements ActionListener{
         }
         
     }
+    
+
 }
