@@ -1,10 +1,7 @@
 package dotsandboxes;
 
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -18,7 +15,7 @@ public class Server extends Thread
     private int mServerPort = 1337;
     private ServerSocket mServerSocket;
     private boolean mRunning = false;
-
+    public ServerRequestHandler mClient;
 
     public Server(int pPort)
     {
@@ -58,8 +55,8 @@ public class Server extends Thread
                 Socket socket = mServerSocket.accept();
 
                 // Pass the socket to the RequestHandler thread for processing
-                RequestHandler requestHandler = new RequestHandler(socket);
-                requestHandler.start();
+                mClient = new ServerRequestHandler(socket);
+                mClient.start();
             } catch (IOException e)
             {
                 e.printStackTrace();

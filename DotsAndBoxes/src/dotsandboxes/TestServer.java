@@ -11,16 +11,17 @@ public class TestServer
 
         try
         {
-        Server server = new Server( 42 );
+            Server server = new Server(12345);
         server.startServer();
-
+            while (server.mClient == null)
+            {
+                Thread.sleep(1000);
+            }
         System.out.println(server.mClient.ReadFromClient());
         Thread.sleep(1000);
         server.mClient.SendToClient("Hello Client");
-        // Automatically shutdown in 1 minute
 
-
-            Thread.sleep( 60000 );
+            Thread.sleep(60000);
             server.stopServer();
         }
         catch( Exception e )
