@@ -31,6 +31,9 @@ public class Controller extends JFrame implements ActionListener{
     private final JMenuItem newNetworkGame;
     private final JMenuItem saveGame;
     private final JMenuItem closeGame;
+    private JLabel nextMoveLabel;
+    private JLabel moveP1Label;
+    private JLabel moveP2Label;
     private JLabel playerLabel1;
     private JLabel playerLabel2;
     private JLabel pointsPlayer1;
@@ -51,7 +54,7 @@ public class Controller extends JFrame implements ActionListener{
         filemenu = new JMenu("File");
         menubar = new JMenuBar();
         newLocalGame = new JMenuItem("New local Game");
-        newNetworkGame = new JMenuItem("new network Game");
+        newNetworkGame = new JMenuItem("New network Game");
         saveGame =  new JMenuItem("Save Game");
         closeGame = new JMenuItem("Close Game");
         
@@ -76,22 +79,29 @@ public class Controller extends JFrame implements ActionListener{
         playGroundPanel = new PlayGround(4, 4);     
         
         informationPanel = new JPanel();
-        informationPanel.setLayout(new GridLayout(3,2));   
+        informationPanel.setLayout(new GridLayout(3,3));   
         
         players = new JLabel("Players");
         points = new JLabel("Points");
-        playerLabel1 = new JLabel("Player 1");
-        
+        nextMoveLabel = new JLabel ("next");
+        playerLabel1 = new JLabel("Player 1");        
         Font font = new Font("Courier", Font.BOLD,15);    
         points.setFont(font);
         players.setFont(font);
+        nextMoveLabel.setFont(font);
+        moveP1Label = new JLabel(Character.toString((char)9658));
+        moveP2Label = new JLabel(Character.toString((char)9658));
+        moveP2Label.setVisible(false);
         playerLabel2 = new JLabel("Player 2");
         pointsPlayer1 = new JLabel("0");
         pointsPlayer2 = new JLabel("0");
+        informationPanel.add(nextMoveLabel);
         informationPanel.add(players);
         informationPanel.add(points);
+        informationPanel.add(moveP1Label);
         informationPanel.add(playerLabel1);
         informationPanel.add(pointsPlayer1);
+        informationPanel.add(moveP2Label);
         informationPanel.add(playerLabel2);
         informationPanel.add(pointsPlayer2);       
 
