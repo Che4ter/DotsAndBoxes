@@ -55,17 +55,19 @@ public class PlayGround extends JPanel{
         this.addMouseListener(new MouseAdapter()
         {
           @Override
-          public void mouseClicked(MouseEvent e)
+          public void mousePressed(MouseEvent e)
           {
             for(Drawable element : playGroundElements)
             {
                 if(element.isItMe(e.getX(), e.getY()))
                 {
                     element.setState(mCurrentState);
-                    repaint();
                     break;
                 }
             }
+            repaint();
+
+
           }
         });
     }
@@ -103,6 +105,7 @@ public class PlayGround extends JPanel{
     @Override
     public void paintComponent(Graphics g)
     {
+        super.paintComponent(g);
         for(Drawable element : playGroundElements)
         {
             element.draw(g);
