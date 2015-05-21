@@ -37,7 +37,7 @@ public class PlayGround extends JPanel{
     
     private int mDotCountX = 0;
     private int mDotCountY = 0;
-    private int mCurrentState = 1;
+    private int mCurrentState = 2;
     
     
     private List<Drawable> playGroundElements = new ArrayList<>();
@@ -67,11 +67,15 @@ public class PlayGround extends JPanel{
             }
             repaint();
 
-
           }
         });
+        
     }
+    
+    public void chooseLine(){
+        
 
+    }
     //Methods
     public void generatePlayGround() {
         //Generate Horizontal Line
@@ -122,4 +126,8 @@ public class PlayGround extends JPanel{
         return (2 * this.pxPadding) + ((newDotCountY - 1) * pxLineWidth);
     }
 
-}
+    public void setmCurrentState(int i){
+    
+        this.mCurrentState = i;
+    }
+ }
