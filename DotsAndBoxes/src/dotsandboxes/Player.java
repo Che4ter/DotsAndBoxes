@@ -60,7 +60,7 @@ public class Player extends MouseAdapter{
         }
         repaint();
     **/
-        e.consume();
+        
         if(active){
         System.out.println("mousepressed" + userid);
         makeMove(e.getX(), e.getY());

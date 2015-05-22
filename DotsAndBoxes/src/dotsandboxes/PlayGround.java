@@ -36,14 +36,13 @@ public class PlayGround extends JPanel{
     private List<Drawable> playGroundElements = new ArrayList<>();
     
     //Konstruktor
-    public PlayGround(final int pDotCountX, final int pDotCountY, Player p[]) {
+    public PlayGround(final int pDotCountX, final int pDotCountY, Player p) {
         mDotCountX = pDotCountX;
         mDotCountY = pDotCountY;
 
         this.setPreferredSize(new Dimension(this.getWidth(pDotCountX), this.getHeight(pDotCountY)));
 
-        this.addMouseListener(p[0]);
-        this.addMouseListener(p[1]);
+        
     }
         
         /*        
