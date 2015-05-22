@@ -38,6 +38,12 @@ public class Player extends MouseAdapter{
         return points;
     }
     
+    public int getPoints(){
+    
+        
+        return points;
+    }
+    
     public void setActive(){
      
         active = true;
@@ -75,6 +81,7 @@ public class Player extends MouseAdapter{
         //    listener.nextMove(4);
         //}
         playerMoveListener.nextMove(x, y, userid);
+        
     }
     
     public void  addMadeMoveListener(MadeMoveListener listener){
