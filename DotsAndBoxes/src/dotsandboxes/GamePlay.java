@@ -30,8 +30,8 @@ public class GamePlay implements MadeMoveListener{
     public GamePlay(){
         
         players = new Player[2];
-        players[0] = new Player("Player 1", 1); //lokaler Spieler
-        players[1] = new Player("Player 2", 2);
+        players[0] = new LocalPlayer("Player 1", 1); //lokaler Spieler
+        players[1] = new LocalPlayer("Player 2", 2);
         playGroundPanel = new PlayGround(4, 4, players[0]);
         infoPanel = new InformationPanel();
         informationPanel = infoPanel.getinformationPanel();
@@ -49,8 +49,8 @@ public class GamePlay implements MadeMoveListener{
             players[0].setInactive();
             players[1].setActive();
             this.activePlayer = 2;
-            playGroundPanel.addMouseListener(players[1]);
-            playGroundPanel.removeMouseListener(players[0]);
+            playGroundPanel.addMouseListener((LocalPlayer)players[1]);
+            playGroundPanel.removeMouseListener((LocalPlayer)players[0]);
             System.out.println("change from 1 to 2");
             updatePoints();
             infoPanel.changeNextPlayer();
@@ -59,8 +59,8 @@ public class GamePlay implements MadeMoveListener{
             players[1].setInactive();
             players[0].setActive();
             this.activePlayer = 1;
-            playGroundPanel.addMouseListener(players[0]);
-            playGroundPanel.removeMouseListener(players[1]);
+            playGroundPanel.addMouseListener((LocalPlayer)players[0]);
+            playGroundPanel.removeMouseListener((LocalPlayer)players[1]);
             System.out.println("change from 2 to 1");
             updatePoints();
             infoPanel.changeNextPlayer();

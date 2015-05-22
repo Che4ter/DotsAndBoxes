@@ -31,6 +31,12 @@ public abstract class Player
         return points;
     }
 
+    public int getPoints(){
+    
+        
+        return points;
+    }
+        
     public void setActive(){
 
         active = true;
