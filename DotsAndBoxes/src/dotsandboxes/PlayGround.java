@@ -34,15 +34,19 @@ public class PlayGround extends JPanel{
     
     
     private List<Drawable> playGroundElements = new ArrayList<>();
-
+    
     //Konstruktor
-    public PlayGround(final int pDotCountX, final int pDotCountY) {
+    public PlayGround(final int pDotCountX, final int pDotCountY, Player p[]) {
         mDotCountX = pDotCountX;
         mDotCountY = pDotCountY;
 
         this.setPreferredSize(new Dimension(this.getWidth(pDotCountX), this.getHeight(pDotCountY)));
 
-        this.addMouseListener(new MouseAdapter()
+        this.addMouseListener(p[0]);
+        this.addMouseListener(p[1]);
+    }
+        
+        /*        
         {
           @Override
           public void mousePressed(MouseEvent e)
@@ -60,12 +64,23 @@ public class PlayGround extends JPanel{
           }
         });
     }
-    /*
+    
     public void chooseLine(){
     }
     */
     
     //Methods
+    
+    public List getPlayGroundList(){
+    
+        return playGroundElements;
+    }
+    
+    public void repaintPlayGround(){
+    
+        repaint();
+    }
+    
     public void generatePlayGround() {
         //Generate Horizontal Line
         for(int x = 0; x < mDotCountX - 1; x++)
