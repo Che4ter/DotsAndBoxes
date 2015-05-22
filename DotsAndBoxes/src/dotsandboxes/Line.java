@@ -70,6 +70,7 @@ public class Line implements Drawable{
     @Override
     public void setState(final int newState)
     {
+        System.out.println(newState);
         this.mState = newState;
     }
     

@@ -91,7 +91,7 @@ public class Controller extends JFrame implements ActionListener{
         
         public void generateInformationPanel(){
     
-         informationPanel = new JPanel();
+        informationPanel = new JPanel();
         informationPanel.setLayout(new GridLayout(3,3));   
         
         players = new JLabel("Players");
