@@ -1,6 +1,5 @@
 package dotsandboxes;
 
-
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -21,22 +20,9 @@ public class Line implements Drawable{
     private int mPosY = 0;
     private int mHeight = 0;
     private int mWidth = 0;
-    private int mBoxPosition = 0;
-    private int mBoxNumber = 0;
     
     //Konstruktor
-    public Line()
-    {
-        
-    }
-            
-    public Line(final int newPosX, final int newPosY, final int newWidth, final int newHeight)
-    {
-        this.mPosX = newPosX;
-        this.mPosY = newPosY;
-        this.mHeight = newHeight;
-        this.mWidth = newWidth;
-    }
+    public Line(){}
     
     //Methods
     @Override
@@ -80,9 +66,17 @@ public class Line implements Drawable{
         return this.mState;
     }
     
-    @Override
+    
     public boolean isItMe(final int newMouseX, final int newMouseY)
     {
         return ((this.mPosX < newMouseX && newMouseX < (this.mPosX + this.mWidth)) && (this.mPosY < newMouseY && newMouseY < (this.mPosY + this.mHeight)));
-    }
+    } //-- isItMe();
+    
+    public void setCoords(final int newPosX, final int newPosY, final int newWidth, final int newHeight)
+    {
+        this.mPosX = newPosX;
+        this.mPosY = newPosY;
+        this.mHeight = newHeight;
+        this.mWidth = newWidth;
+    } //-- setCoords()
 }

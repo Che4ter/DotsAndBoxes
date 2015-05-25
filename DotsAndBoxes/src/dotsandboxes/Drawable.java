@@ -17,6 +17,4 @@ public interface Drawable {
     void draw(Graphics g);
     void setState(final int newState);
     int getState();
-    boolean isItMe(final int newMouseX, final int newMouseY);
-    
 }

@@ -63,10 +63,4 @@ public class Dot implements Drawable
     {
         return this.state;
     }
-    
-    @Override
-    public boolean isItMe(final int newMouseX, final int newMouseY)
-    {
-        return false;
-    }
 }

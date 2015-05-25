@@ -6,24 +6,20 @@
 package dotsandboxes;
 
 import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
-import javax.swing.JLabel;
+//import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JPanel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 /**
  *
  * @author mario_000
  */
-public class Controller extends JFrame implements ActionListener{
-    
+public class Controller extends JFrame implements ActionListener
+{
     private final JMenu filemenu;
     private final JMenuBar menubar;
     private final JMenuItem newLocalGame;
@@ -35,10 +31,9 @@ public class Controller extends JFrame implements ActionListener{
     
     
     public Controller(){
-        
         super("Dots and Boxes");
         
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         //setMinimumSize(new Dimension(500, 500));
         
@@ -66,7 +61,6 @@ public class Controller extends JFrame implements ActionListener{
     }
     
     public void newLocalGame(){
-        
         generateGame();
 
         setVisible(true);        
@@ -76,41 +70,31 @@ public class Controller extends JFrame implements ActionListener{
         public void generateGame(){
         GamePlay game1 = new GamePlay();
         playGroundPanel = game1.getPlayGroundPanel();
-        playGroundPanel.generatePlayGround();
+        playGroundPanel.setCoordsAndSize();
+        playGroundPanel.repaintPlayGround();
+        //playGroundPanel.generatePlayGround();
         add(playGroundPanel, BorderLayout.SOUTH);       
         informationPanel = game1.getinformationPanel();
         add(informationPanel, BorderLayout.CENTER);
-    }
+    } //-- newLocalGame()
                 
-        @Override
-        public void actionPerformed(ActionEvent e){
-        
+    @Override
+    public void actionPerformed(ActionEvent e){
         if(e.getSource() == this.newLocalGame){
+            //int x = Integer.parseInt(JOptionPane.showInputDialog("test"));
+            newLocalGame();
+        }
 
-        //int x = Integer.parseInt(JOptionPane.showInputDialog("test"));
-        newLocalGame();
-        }
-        
         if(e.getSource() == this.newNetworkGame){
-        
-            
         }
-        
+
         if(e.getSource() == this.saveGame){
-        
-            
-            
         }
-        
+
         if(e.getSource() == this.closeGame){
-        
             System.exit(0); //Close program
             this.dispose(); //Close window
             this.setVisible(false); //Hide window
-
-        }
-        
+        }   
     }
-    
-
 }

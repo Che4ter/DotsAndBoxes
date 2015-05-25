@@ -25,14 +25,37 @@ public class Box implements Drawable{
         
     }
     
-    public Box(final Line newLeft, final Line newTop, final Line newRight, final Line newBottom)
+    public boolean boxIsFull()
     {
-        this.mLeftLine = newLeft;
-        this.mTopLine = newTop;
-        this.mRightLine = newRight;
-        this.mBottomLine = newBottom;
+        return (mLeftLine.getState() > 0 && mRightLine.getState() > 0 && mTopLine.getState() > 0 && mBottomLine.getState() > 0);
     }
     
+    @Override
+    public void setState(final int newState)
+    {
+        return;
+    }
+    
+    @Override
+    public int getState()
+    {
+        return this.mState;
+    }
+    
+    @Override
+    public void draw(Graphics g)
+    {
+        //Zeichne Boxeninhalt
+        
+        //Zeichne Linien
+        this.mLeftLine.draw(g);
+        this.mTopLine.draw(g);
+        this.mRightLine.draw(g);
+        this.mBottomLine.draw(g);
+    }
+    
+    //AddLine Methods
+    //--------------------------------------------------------------------------
     public void addLeftLine(final Line newLine)
     {
         this.mLeftLine = newLine;
@@ -52,33 +75,48 @@ public class Box implements Drawable{
     {
         this.mBottomLine = newLine;
     }
-    
-    public boolean boxIsFull()
+    /*
+    //setCoords Methods
+    //--------------------------------------------------------------------------
+    public void setCoordLeftLine(final Line newLine)
     {
-        return (mLeftLine.getState() > 0 && mRightLine.getState() > 0 && mTopLine.getState() > 0 && mBottomLine.getState() > 0);
+        this.mLeftLine = newLine;
     }
     
-    @Override
-    public void setState(final int newState)
+    public void setCoordTopLine(final Line newLine)
     {
-        return;
+        this.mTopLine = newLine;
     }
     
-    @Override
-    public int getState()
+    public void setCoordRightLine(final Line newLine)
     {
-        return this.mState;
+        this.mRightLine = newLine;
     }
     
-    @Override
-    public boolean isItMe(final int newMouseX, final int newMouseY)
+    public void setCoordBottomLine(final Line newLine)
     {
-        return false;
+        this.mBottomLine = newLine;
+    }*/
+    
+    //getLine Methods
+    //--------------------------------------------------------------------------
+    public Line getLeftLine()
+    {
+        return this.mLeftLine;
     }
     
-    @Override
-    public void draw(Graphics g)
+    public Line getTopLine()
     {
-        return;
+        return this.mTopLine;
+    }
+    
+    public Line getRightLine()
+    {
+        return this.mRightLine;
+    }
+    
+    public Line getBottomLine()
+    {
+        return this.mBottomLine;
     }
 }

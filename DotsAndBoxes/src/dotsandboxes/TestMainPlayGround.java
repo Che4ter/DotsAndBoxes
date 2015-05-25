@@ -17,7 +17,7 @@ public class TestMainPlayGround {
     public static void main(String[] args)
     {
         JFrame frame = new JFrame("PlayGround Sandbox");
-        PlayGround play = new PlayGround(4, 4);
+        //PlayGround play = new PlayGround(4, 4);
         
         TestNonsense test = new TestNonsense();
         test.generateBoxes(4,4);
@@ -25,8 +25,8 @@ public class TestMainPlayGround {
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        frame.add(play);
-        play.generatePlayGround();
+        //frame.add(play);
+        //play.generatePlayGround();
         frame.pack();
         frame.setVisible(true);
         
