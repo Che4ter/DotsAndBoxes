@@ -1,7 +1,7 @@
 package dotsandboxes;
 
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,7 +14,7 @@ import java.awt.Graphics;
  * @author Surri
  */
 public interface Drawable {
-    void draw(Graphics g);
-    void setState(final int newState);
-    int getState();
+    void    draw(Graphics2D g);
+    void    setOwner(final int newOwner);
+    int     getOwner();
 }

@@ -72,7 +72,7 @@ public class Controller extends JFrame implements ActionListener
         playGroundPanel = game1.getPlayGroundPanel();
         playGroundPanel.setCoordsAndSize();
         playGroundPanel.repaintPlayGround();
-        //playGroundPanel.generatePlayGround();
+        
         add(playGroundPanel, BorderLayout.SOUTH);       
         informationPanel = game1.getinformationPanel();
         add(informationPanel, BorderLayout.CENTER);

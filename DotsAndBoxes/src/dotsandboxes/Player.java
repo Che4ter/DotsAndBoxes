@@ -18,47 +18,41 @@ public abstract class Player
     protected MadeMoveListener playerMoveListener;
 
 
-    public Player(String username, int id){
+    public Player(String username, int id)
+    {
         this.userid = id;
-        points = 0;
+        this.points = 0;
         this.username = username;
-        active = false;
+        this.active = false;
     }
 
-    public int setPoints(){
-
-        points++;
+    public int setPoints(final int newPoints)
+    {
+        this.points = newPoints;
         return points;
     }
 
-    public int getPoints(){
-    
-        
-        return points;
+    public int getPoints()
+    {
+        return this.points;
     }
         
-    public void setActive(){
-
-        active = true;
-    }
-
-    public void setInactive(){
-
-        active = false;
+    public void setActive(final boolean newActiveState)
+    {
+        this.active = newActiveState;
     }
 
     public void makeMove(int x, int y)
     {
-        playerMoveListener.nextMove(x, y, userid);
+        this.playerMoveListener.nextMove(x, y, userid);
     }
 
-    public void  addMadeMoveListener(MadeMoveListener listener){
-
-        playerMoveListener = (listener);
+    public void  addMadeMoveListener(MadeMoveListener listener)
+    {
+        this.playerMoveListener = (listener);
     }
 
     public abstract void yourTurn();
-
 }
 
 
