@@ -84,5 +84,6 @@ public class InformationPanel {
             pointsPlayer2.setText(points);
         }
         
+        informationPanel.repaint();
     }
 }

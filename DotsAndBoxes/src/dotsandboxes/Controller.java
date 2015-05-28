@@ -14,11 +14,12 @@ import javax.swing.JPanel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 /**
  *
  * @author mario_000
  */
-public class Controller extends JFrame implements ActionListener
+public class Controller extends JFrame implements ActionListener, GameFinishedListener
 {
     private final JMenu filemenu;
     private final JMenuBar menubar;
@@ -28,6 +29,7 @@ public class Controller extends JFrame implements ActionListener
     private final JMenuItem closeGame;
     private JPanel informationPanel;
     private PlayGround playGroundPanel;
+    private GamePlay game1;
     
     
     public Controller(){
@@ -58,17 +60,21 @@ public class Controller extends JFrame implements ActionListener
 
         setVisible(true);
         this.pack();
+        
     }
     
     public void newLocalGame(){
+        
+        
         generateGame();
 
         setVisible(true);        
         this.pack();
         }
         
-        public void generateGame(){
-        GamePlay game1 = new GamePlay();
+    public void generateGame(){
+        game1 = new GamePlay();
+        game1.AddgameFinishedListener(this);
         playGroundPanel = game1.getPlayGroundPanel();
         playGroundPanel.setCoordsAndSize();
         playGroundPanel.repaintPlayGround();
@@ -76,13 +82,37 @@ public class Controller extends JFrame implements ActionListener
         add(playGroundPanel, BorderLayout.SOUTH);       
         informationPanel = game1.getinformationPanel();
         add(informationPanel, BorderLayout.CENTER);
-    } //-- newLocalGame()
+        
+        /**if(game1.isFinished()){
+        
+            if(game1.gameFinished() == 0){
                 
+                clearPanel();
+                newLocalGame();
+            }else{
+        
+            closeGame();
+            }
+        
+        } **/
+            
+}
+
+    public void closeGame(){
+        System.exit(0); //Close program
+        this.dispose(); //Close window
+        this.setVisible(false); //Hide window
+        
+    }
+
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == this.newLocalGame){
             //int x = Integer.parseInt(JOptionPane.showInputDialog("test"));
+
+            clearPanel();
             newLocalGame();
+            
         }
 
         if(e.getSource() == this.newNetworkGame){
@@ -92,9 +122,43 @@ public class Controller extends JFrame implements ActionListener
         }
 
         if(e.getSource() == this.closeGame){
-            System.exit(0); //Close program
-            this.dispose(); //Close window
-            this.setVisible(false); //Hide window
+            
         }   
     }
+    
+    public void clearPanel(){
+    
+        if(playGroundPanel != null){
+        
+            this.remove(playGroundPanel);
+            this.remove(informationPanel);
+            this.repaint();
+            game1 = null;
+            repaint();
+        }
+    }
+
+    @Override
+    public void GameFinished() {
+        
+        Object[] options = {"neues Spiel","Spiel beenden"};
+        //int n = JOptionPane.showOptionDialog(playGroundPanel, getWinner(), JOptionPane.YES_NO_OPTION,null, options, options[0]);
+
+        int n = JOptionPane.showOptionDialog(playGroundPanel,game1.getWinner(),"Spiel Ende",JOptionPane.YES_NO_OPTION,  JOptionPane.QUESTION_MESSAGE, null, options,options[0]);
+        
+        if(n==0){
+             
+            clearPanel();
+            newLocalGame();
+        }else{
+            
+            closeGame();
+
+        }
+        
+        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }

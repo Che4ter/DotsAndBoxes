@@ -5,6 +5,8 @@
  */
 package dotsandboxes;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -21,6 +23,7 @@ public class GamePlay implements MadeMoveListener{
     private InformationPanel infoPanel;
     private Player[] players;
     private int activePlayer;
+    private GameFinishedListener finishedListener;
     
 
     public GamePlay()
@@ -30,7 +33,7 @@ public class GamePlay implements MadeMoveListener{
         players[1] = new LocalPlayer("Player 2", 2);
         
         //Generiere Box-Array
-        this.arrBoxes = generateBoxArray(10,6);
+        this.arrBoxes = generateBoxArray(2,2);
         playGroundPanel = new PlayGround(this.arrBoxes, players[0]);
         
         infoPanel = new InformationPanel();
@@ -51,8 +54,7 @@ public class GamePlay implements MadeMoveListener{
             this.activePlayer = 2;
             playGroundPanel.addMouseListener((LocalPlayer)players[1]);
             playGroundPanel.removeMouseListener((LocalPlayer)players[0]);
-            System.out.println("change from 1 to 2");
-            updatePoints();
+            System.out.println("change from 1 to 2");         
             infoPanel.changeNextPlayer();
         }
         else
@@ -62,8 +64,7 @@ public class GamePlay implements MadeMoveListener{
             this.activePlayer = 1;
             playGroundPanel.addMouseListener((LocalPlayer)players[0]);
             playGroundPanel.removeMouseListener((LocalPlayer)players[1]);
-            System.out.println("change from 2 to 1");
-            updatePoints();
+            System.out.println("change from 2 to 1");          
             infoPanel.changeNextPlayer();
         }
     } //-- changePlayer()
@@ -88,19 +89,20 @@ public class GamePlay implements MadeMoveListener{
     @Override
     public void nextMove(final int newPosX, final int newPosY, int id)
     {
+        
         System.out.println("nextMoveID" + id);
         if(id == this.activePlayer)
         {
             boolean bPlayerHasClickedANeutralLine = false;            
             boolean bPlayerHasFilledABox = false;
-            
+
             //First check Lines
             for (Box[] arrBoxes : this.arrBoxes)
             {
                 for (Box box : arrBoxes)
                 {
                     Line clickedLine = box.getLineIfClicked(newPosX, newPosY, playGroundPanel.getDotRadius());
-                    
+
                     if(clickedLine != null && clickedLine.getOwner() == 0)
                     {
                         bPlayerHasClickedANeutralLine = true;
@@ -108,7 +110,7 @@ public class GamePlay implements MadeMoveListener{
                     }
                 } //-- for()
             } //-- for()
-            
+
             if(bPlayerHasClickedANeutralLine)
             {
                 //Now check boxes
@@ -124,18 +126,23 @@ public class GamePlay implements MadeMoveListener{
                     } //-- for()
                 } //-- for()
             }
-            
+
             if(bPlayerHasClickedANeutralLine && !bPlayerHasFilledABox)
                 changePlayer();
-            
+
             players[0].setPoints(playGroundPanel.getBoxCountByOwner(1));
-            players[1].setPoints(playGroundPanel.getBoxCountByOwner(2));
-            
+            players[1].setPoints(playGroundPanel.getBoxCountByOwner(2));           
             playGroundPanel.repaint();
+            updatePoints();
+            //infoPanel.repaint();
         }
         else
         {
             System.out.println("player" + id + "not active");
+        }
+        
+        if(isFinished()){
+            gameFinished();            
         }
     } //-- nextMove()
     
@@ -200,4 +207,42 @@ public class GamePlay implements MadeMoveListener{
         
         return boxes;
     } //-- generateBoxArray()
+    
+    public boolean isFinished(){
+    
+        boolean finished = true;
+        for (Box[] arrBoxes : this.arrBoxes){
+             for(Box box : arrBoxes){
+                 if(!box.isFull()){
+                    finished = false;
+                 }
+             }
+        }
+        
+     return finished;
+    }
+    
+    public void gameFinished(){
+        finishedListener.GameFinished();
+    }
+    
+    public String getWinner(){
+    
+        if(players[0].getPoints() != players[1].getPoints()){
+            if(players[0].getPoints() > players[1].getPoints()){
+                return "Gewonnen hat " + players[0].username + " mit " +  players[0].getPoints() + " Punkten";
+            } else{
+            
+                return "Gewonnen hat " + players[1].username + " mit " +  players[1].getPoints() + " Punkten";
+            }
+        }else{
+            return "Unentschieden";
+        }
+        
+    }
+    
+    public void AddgameFinishedListener(GameFinishedListener e){
+    
+        finishedListener = e;
+    }
 }
