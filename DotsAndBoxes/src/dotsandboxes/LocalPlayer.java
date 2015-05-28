@@ -21,6 +21,7 @@ public class LocalPlayer extends Player implements MouseListener
         if(active){
             System.out.println("mousepressed" + userid);
             makeMove(e.getX(), e.getY());
+
         }
     }
 
