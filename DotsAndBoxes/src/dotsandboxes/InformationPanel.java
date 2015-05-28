@@ -26,7 +26,7 @@ public class InformationPanel {
     private JLabel players;
     private JLabel points;
         
-    public InformationPanel() {
+    public InformationPanel(String pPlayerName1,String pPlayerName2) {
     
         
         informationPanel = new JPanel();
@@ -35,7 +35,7 @@ public class InformationPanel {
         players = new JLabel("Players");
         points = new JLabel("Points");
         nextMoveLabel = new JLabel ("next");
-        playerLabel1 = new JLabel("Player 1");        
+        playerLabel1 = new JLabel(pPlayerName1);
         Font font = new Font("Courier", Font.BOLD,15);    
         points.setFont(font);
         players.setFont(font);
@@ -43,7 +43,7 @@ public class InformationPanel {
         moveP1Label = new JLabel(Character.toString((char)9658));
         moveP2Label = new JLabel(Character.toString((char)9658));
         moveP2Label.setVisible(false);
-        playerLabel2 = new JLabel("Player 2");
+        playerLabel2 = new JLabel(pPlayerName2);
         pointsPlayer1 = new JLabel("0");
         pointsPlayer2 = new JLabel("0");
         informationPanel.add(nextMoveLabel);

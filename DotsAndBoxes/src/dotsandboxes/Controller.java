@@ -5,10 +5,10 @@
  */
 package dotsandboxes;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JFrame;
+import javax.swing.*;
 //import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JPanel;
 import javax.swing.JMenu;
@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  *
  * @author mario_000
  */
-public class Controller extends JFrame implements ActionListener, GameFinishedListener
+public class Controller extends JFrame implements ActionListener, GameFinishedListener,GameSetupListener
 {
     private final JMenu filemenu;
     private final JMenuBar menubar;
@@ -29,9 +29,9 @@ public class Controller extends JFrame implements ActionListener, GameFinishedLi
     private final JMenuItem closeGame;
     private JPanel informationPanel;
     private PlayGround playGroundPanel;
-    private GamePlay game1;
-    
-    
+    private JPanel localGameSetupPanel;
+    private GameSetupDialog setupDialog;
+    private GamePlay game;
     public Controller(){
         super("Dots and Boxes");
         
@@ -57,30 +57,27 @@ public class Controller extends JFrame implements ActionListener, GameFinishedLi
         newNetworkGame.addActionListener(this);
         saveGame.addActionListener(this);
         closeGame.addActionListener(this);
-
+        this.setMinimumSize(new Dimension(400, 300));
         setVisible(true);
-        this.pack();
-        
+
     }
     
-    public void newLocalGame(){
-        
-        
-        generateGame();
+    public void newLocalGame(String pPlayerName1, String pPlayerName2,int pX,int pY){
+        generateGame(pPlayerName1, pPlayerName2, pX, pY);
 
         setVisible(true);        
         this.pack();
         }
         
-    public void generateGame(){
-        game1 = new GamePlay();
-        game1.AddgameFinishedListener(this);
-        playGroundPanel = game1.getPlayGroundPanel();
+        public void generateGame(String pPlayerName1, String pPlayerName2,int pX,int pY){
+         game = new GamePlay( pPlayerName1,  pPlayerName2, pX, pY);
+        game.AddgameFinishedListener(this);
+            playGroundPanel = game.getPlayGroundPanel();
         playGroundPanel.setCoordsAndSize();
         playGroundPanel.repaintPlayGround();
         
         add(playGroundPanel, BorderLayout.SOUTH);       
-        informationPanel = game1.getinformationPanel();
+        informationPanel = game.getinformationPanel();
         add(informationPanel, BorderLayout.CENTER);
         
         /**if(game1.isFinished()){
@@ -109,10 +106,10 @@ public class Controller extends JFrame implements ActionListener, GameFinishedLi
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == this.newLocalGame){
             //int x = Integer.parseInt(JOptionPane.showInputDialog("test"));
-
-            clearPanel();
-            newLocalGame();
             
+           //clearRunningGame();
+            setupDialog=new GameSetupDialog(this);
+            setupDialog.addGameSetupListener(this);
         }
 
         if(e.getSource() == this.newNetworkGame){
@@ -121,9 +118,24 @@ public class Controller extends JFrame implements ActionListener, GameFinishedLi
         if(e.getSource() == this.saveGame){
         }
 
-        if(e.getSource() == this.closeGame){
-            
+        else if(e.getSource() == this.closeGame){
+           exitGame();
         }   
+    }
+
+
+    public void exitGame()
+    {
+        System.exit(0); //Close program
+        this.dispose(); //Close window
+        this.setVisible(false); //Hide window
+    }
+
+    @Override
+    public void newGameSetup(String pPlayerName1, String pPlayerName2,int pX,int pY)
+    {
+        clearPanel();
+        newLocalGame(pPlayerName1,pPlayerName2,pX,pY);
     }
     
     public void clearPanel(){

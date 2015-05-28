@@ -24,7 +24,8 @@ public class PlayGround extends JPanel{
     private final int pxLineHeight = 8;
     private final int pxLineWidth = 70;
     private Box[][] arrBoxes;
-    
+    private boolean clearPanel=false;
+
     //Konstruktor
     public PlayGround (final Box[][] newBoxArray, Player p)
     {
@@ -129,50 +130,53 @@ public class PlayGround extends JPanel{
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        
-        Graphics2D g2 = (Graphics2D) g.create();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        
-        //Draw boxes
-        for (Box[] arrBoxes : this.arrBoxes)
-            for (Box box : arrBoxes)
-                box.draw(g2);
-        
-        //Draw lines
-        for(int y = 0; y < this.arrBoxes.length; y++)
+
+        if (!clearPanel)
         {
-            for(int x = 0; x < this.arrBoxes[y].length; x++)
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            //Draw boxes
+            for (Box[] arrBoxes : this.arrBoxes)
+                for (Box box : arrBoxes)
+                    box.draw(g2);
+
+            //Draw lines
+            for (int y = 0; y < this.arrBoxes.length; y++)
             {
-                //Draw horizontal lines
-                if(y == 0)
-                    this.arrBoxes[y][x].getTopLine().draw(g2);
-                
-                this.arrBoxes[y][x].getBottomLine().draw(g2);
-                
-                //Draw vertical lines
-                if(x == 0)
-                    this.arrBoxes[y][x].getLeftLine().draw(g2);
-                
-                this.arrBoxes[y][x].getRightLine().draw(g2);                
+                for (int x = 0; x < this.arrBoxes[y].length; x++)
+                {
+                    //Draw horizontal lines
+                    if (y == 0)
+                        this.arrBoxes[y][x].getTopLine().draw(g2);
+
+                    this.arrBoxes[y][x].getBottomLine().draw(g2);
+
+                    //Draw vertical lines
+                    if (x == 0)
+                        this.arrBoxes[y][x].getLeftLine().draw(g2);
+
+                    this.arrBoxes[y][x].getRightLine().draw(g2);
+                } //-- for()
             } //-- for()
-        } //-- for()
-        
-        
-        //Draw Points
-        int pointCounterX = this.arrBoxes[0].length + 1;
-        int pointCounterY = this.arrBoxes.length + 1;
-        
-        for(int y = 0; y < pointCounterY; y++)
-        {
-            for(int x = 0; x < pointCounterX; x++)
+
+
+            //Draw Points
+            int pointCounterX = this.arrBoxes[0].length + 1;
+            int pointCounterY = this.arrBoxes.length + 1;
+
+            for (int y = 0; y < pointCounterY; y++)
             {
-                g2.setColor(Color.DARK_GRAY);
-                g2.fillOval(this.pxPadding + (x * pxLineWidth) - (this.pxDotDiameter / 2), this.pxPadding + y * pxLineWidth - (this.pxDotDiameter / 2), this.pxDotDiameter, this.pxDotDiameter);
-                g2.setColor(Color.BLACK);
-                g2.drawOval(this.pxPadding + (x * pxLineWidth) - (this.pxDotDiameter / 2), this.pxPadding + y * pxLineWidth - (this.pxDotDiameter / 2), this.pxDotDiameter, this.pxDotDiameter);
+                for (int x = 0; x < pointCounterX; x++)
+                {
+                    g2.setColor(Color.DARK_GRAY);
+                    g2.fillOval(this.pxPadding + (x * pxLineWidth) - (this.pxDotDiameter / 2), this.pxPadding + y * pxLineWidth - (this.pxDotDiameter / 2), this.pxDotDiameter, this.pxDotDiameter);
+                    g2.setColor(Color.BLACK);
+                    g2.drawOval(this.pxPadding + (x * pxLineWidth) - (this.pxDotDiameter / 2), this.pxPadding + y * pxLineWidth - (this.pxDotDiameter / 2), this.pxDotDiameter, this.pxDotDiameter);
+                } //-- for()
             } //-- for()
-        } //-- for()
-    } //-- paintComponent()
+        } //-- paintComponent()
+    }
     
     
     /**
@@ -199,4 +203,12 @@ public class PlayGround extends JPanel{
     {
         return (2 * this.pxPadding) + (newBoxCountY * pxLineWidth);
     } //-- getHeight()
+
+    public void clearPlayGround()
+    {
+        clearPanel=true;
+        this.removeAll();
+        this.repaintPlayGround();
+        clearPanel=false;
+    }
  }
