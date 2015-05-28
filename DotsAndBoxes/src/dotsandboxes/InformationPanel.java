@@ -5,10 +5,8 @@
  */
 package dotsandboxes;
 
-import java.awt.Font;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -25,8 +23,9 @@ public class InformationPanel {
     private JLabel pointsPlayer2;
     private JLabel players;
     private JLabel points;
-        
-    public InformationPanel(String pPlayerName1,String pPlayerName2) {
+
+    public InformationPanel(String pPlayerName1, String pPlayerName2)
+    {
     
         
         informationPanel = new JPanel();

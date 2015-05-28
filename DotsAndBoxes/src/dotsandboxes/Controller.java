@@ -39,7 +39,7 @@ public class Controller extends JFrame implements ActionListener, GameFinishedLi
         setLayout(new BorderLayout());
         //setMinimumSize(new Dimension(500, 500));
         
-        filemenu = new JMenu("File");
+        filemenu = new JMenu("Game Setup");
         menubar = new JMenuBar();
         newLocalGame = new JMenuItem("New local Game");
         newNetworkGame = new JMenuItem("New network Game");
@@ -79,20 +79,6 @@ public class Controller extends JFrame implements ActionListener, GameFinishedLi
         add(playGroundPanel, BorderLayout.SOUTH);       
         informationPanel = game.getinformationPanel();
         add(informationPanel, BorderLayout.CENTER);
-        
-        /**if(game1.isFinished()){
-        
-            if(game1.gameFinished() == 0){
-                
-                clearPanel();
-                newLocalGame();
-            }else{
-        
-            closeGame();
-            }
-        
-        } **/
-            
 }
 
     public void closeGame(){
@@ -145,7 +131,7 @@ public class Controller extends JFrame implements ActionListener, GameFinishedLi
             this.remove(playGroundPanel);
             this.remove(informationPanel);
             this.repaint();
-            game1 = null;
+            game= null;
             repaint();
         }
     }
@@ -156,12 +142,13 @@ public class Controller extends JFrame implements ActionListener, GameFinishedLi
         Object[] options = {"neues Spiel","Spiel beenden"};
         //int n = JOptionPane.showOptionDialog(playGroundPanel, getWinner(), JOptionPane.YES_NO_OPTION,null, options, options[0]);
 
-        int n = JOptionPane.showOptionDialog(playGroundPanel,game1.getWinner(),"Spiel Ende",JOptionPane.YES_NO_OPTION,  JOptionPane.QUESTION_MESSAGE, null, options,options[0]);
+        int n = JOptionPane.showOptionDialog(playGroundPanel,game.getWinner(),"Spiel Ende",JOptionPane.YES_NO_OPTION,  JOptionPane.QUESTION_MESSAGE, null, options,options[0]);
         
         if(n==0){
              
             clearPanel();
-            newLocalGame();
+            setupDialog=new GameSetupDialog(this);
+            setupDialog.addGameSetupListener(this);
         }else{
             
             closeGame();

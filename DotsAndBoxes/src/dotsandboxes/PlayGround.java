@@ -20,9 +20,9 @@ import javax.swing.JPanel;
 public class PlayGround extends JPanel{
     //Field
     private final int pxPadding = 20;
-    private final int pxDotDiameter = 14;
-    private final int pxLineHeight = 8;
-    private final int pxLineWidth = 70;
+    private final int pxDotDiameter = 18;
+    private final int pxLineHeight = 12;
+    private final int pxLineWidth = 80;
     private Box[][] arrBoxes;
     private boolean clearPanel=false;
 

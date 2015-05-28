@@ -5,5 +5,5 @@ package dotsandboxes;
  */
 public interface GameSetupListener
 {
-    public void newGameSetup(String pPlayerName1, String pPlayerName2,int pX,int pY);
+    void newGameSetup(String pPlayerName1, String pPlayerName2, int pX, int pY);
 }

@@ -58,6 +58,7 @@ public class GameSetupDialog extends JFrame
             public void actionPerformed(ActionEvent e)
             {
                 setVisible(false);
+
             }
         });
         okButton.addActionListener(pactionListener);
@@ -109,6 +110,7 @@ public class GameSetupDialog extends JFrame
                 }
                 else
                 {
+                    setVisible(false);
                     this.mgameSetupListener.newGameSetup(player1Name.getText(), player2Name.getText(), x,y);
 
                 }

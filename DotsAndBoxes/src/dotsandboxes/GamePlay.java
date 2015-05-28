@@ -5,7 +5,7 @@
  */
 package dotsandboxes;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  *
@@ -22,20 +22,19 @@ public class GamePlay implements MadeMoveListener{
     private Player[] players;
     private int activePlayer;
     private GameFinishedListener finishedListener;
-    
 
 
-    public GamePlay(String pPlayerName1, String pPlayerName2,int pX,int pY)
+    public GamePlay(String pPlayerName1, String pPlayerName2, int pX, int pY)
     {    
         players = new Player[2];
         players[0] = new LocalPlayer(pPlayerName1, 1); //lokaler Spieler
         players[1] = new LocalPlayer(pPlayerName2, 2);
         
         //Generiere Box-Array
-        this.arrBoxes = generateBoxArray(pX,pY);
+        this.arrBoxes = generateBoxArray(pX, pY);
         playGroundPanel = new PlayGround(this.arrBoxes, players[0]);
-        
-        infoPanel = new InformationPanel(pPlayerName1,pPlayerName2);
+
+        infoPanel = new InformationPanel(pPlayerName1, pPlayerName2);
         informationPanel = infoPanel.getinformationPanel();
         activePlayer = 1; //startet immer mit Spieler 2
         players[0].addMadeMoveListener(this);
@@ -93,14 +92,14 @@ public class GamePlay implements MadeMoveListener{
         {
             boolean bPlayerHasClickedANeutralLine = false;            
             boolean bPlayerHasFilledABox = false;
-            
+
             //First check Lines
             for (Box[] arrBoxes : this.arrBoxes)
             {
                 for (Box box : arrBoxes)
                 {
                     Line clickedLine = box.getLineIfClicked(newPosX, newPosY, playGroundPanel.getDotRadius());
-                    
+
                     if(clickedLine != null && clickedLine.getOwner() == 0)
                     {
                         bPlayerHasClickedANeutralLine = true;
@@ -108,7 +107,7 @@ public class GamePlay implements MadeMoveListener{
                     }
                 } //-- for()
             } //-- for()
-            
+
             if(bPlayerHasClickedANeutralLine)
             {
                 //Now check boxes
@@ -124,10 +123,10 @@ public class GamePlay implements MadeMoveListener{
                     } //-- for()
                 } //-- for()
             }
-            
+
             if(bPlayerHasClickedANeutralLine && !bPlayerHasFilledABox)
                 changePlayer();
-            
+
             players[0].setPoints(playGroundPanel.getBoxCountByOwner(1));
             players[1].setPoints(playGroundPanel.getBoxCountByOwner(2));
             
