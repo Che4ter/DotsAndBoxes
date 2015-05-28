@@ -6,13 +6,12 @@
 package dotsandboxes;
 
 /**
- *
  * @author mario_000
  */
 public abstract class Player
 {
-    protected int points;
     protected final String username;
+    protected int points;
     protected boolean active;
     protected int userid;
     protected MadeMoveListener playerMoveListener;
@@ -36,7 +35,7 @@ public abstract class Player
     {
         return this.points;
     }
-        
+
     public void setActive(final boolean newActiveState)
     {
         this.active = newActiveState;
@@ -47,7 +46,7 @@ public abstract class Player
         this.playerMoveListener.nextMove(x, y, userid);
     }
 
-    public void  addMadeMoveListener(MadeMoveListener listener)
+    public void addMadeMoveListener(MadeMoveListener listener)
     {
         this.playerMoveListener = (listener);
     }

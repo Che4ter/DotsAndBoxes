@@ -5,8 +5,9 @@ package dotsandboxes;
  */
 public class NetworkPlayer extends Player
 {
-    public NetworkPlayer(String username, int id){
-        super(username,id);
+    public NetworkPlayer(String username, int id)
+    {
+        super(username, id);
 
     }
 

@@ -10,12 +10,13 @@ import java.awt.event.ActionListener;
  */
 public class GameSetupDialog extends JFrame
 {
+    public JButton okButton;
+    protected GameSetupListener mgameSetupListener;
     private JLabel player1Label;
     private JLabel player2Label;
     private JLabel boxxSizeLabel;
     private JLabel boxySizeLabel;
     private JLabel infoMessage;
-    public JButton okButton;
     private JButton cancelButton;
     private JTextField player1Name;
     private JTextField player2Name;
@@ -23,7 +24,6 @@ public class GameSetupDialog extends JFrame
     private JTextField ySize;
     private JPanel settingsPanel;
     private JLabel errorLabel;
-    protected GameSetupListener mgameSetupListener;
 
     public GameSetupDialog(ActionListener pactionListener)
     {
@@ -33,8 +33,8 @@ public class GameSetupDialog extends JFrame
 
         player1Label = new JLabel("Name Player 1");
         player2Label = new JLabel("Name Player 2");
-        boxxSizeLabel= new JLabel("Horizontale Grösse");
-        boxySizeLabel= new JLabel("Verticale Grösse");
+        boxxSizeLabel = new JLabel("Horizontale Grösse");
+        boxySizeLabel = new JLabel("Verticale Grösse");
         errorLabel = new JLabel();
         player1Name = new JTextField();
         player2Name = new JTextField();
@@ -76,20 +76,18 @@ public class GameSetupDialog extends JFrame
         settingsPanel.add(cancelButton);
         settingsPanel.add(errorLabel);
         this.add(settingsPanel);
-        this.setMinimumSize(new Dimension(200,100));
+        this.setMinimumSize(new Dimension(200, 100));
         this.pack();
         this.setVisible(true);
     }
 
 
-
-
     public void setupGame()
     {
-        System.out.println("Player 1 Name:"+player1Name.getText());
-        System.out.println("Player 2 Name:"+player2Name.getText());
+        System.out.println("Player 1 Name:" + player1Name.getText());
+        System.out.println("Player 2 Name:" + player2Name.getText());
 
-        if(player1Name.getText().isEmpty()|| player2Name.getText().isEmpty() || xSize.getText().isEmpty()||ySize
+        if (player1Name.getText().isEmpty() || player2Name.getText().isEmpty() || xSize.getText().isEmpty() || ySize
                 .getText().isEmpty())
         {
             errorLabel.setText("Bitte alles Ausfüllen");
@@ -101,9 +99,9 @@ public class GameSetupDialog extends JFrame
             {
                 int x = Integer.parseInt(xSize.getText());
                 int y = Integer.parseInt(ySize.getText());
-                System.out.println("Box Size x:"+x+" y:"+y);
+                System.out.println("Box Size x:" + x + " y:" + y);
 
-                if(x<2 || y<2)
+                if (x < 2 || y < 2)
                 {
                     errorLabel.setText("Grösse muss grösser als 2 sein");
 
@@ -111,11 +109,10 @@ public class GameSetupDialog extends JFrame
                 else
                 {
                     setVisible(false);
-                    this.mgameSetupListener.newGameSetup(player1Name.getText(), player2Name.getText(), x,y);
+                    this.mgameSetupListener.newGameSetup(player1Name.getText(), player2Name.getText(), x, y);
 
                 }
-            }
-            catch (Exception ex)
+            } catch (Exception ex)
             {
                 errorLabel.setText("Ungültige Box Grösse");
 
@@ -124,7 +121,7 @@ public class GameSetupDialog extends JFrame
         }
     }
 
-    public void  addGameSetupListener(GameSetupListener listener)
+    public void addGameSetupListener(GameSetupListener listener)
     {
         this.mgameSetupListener = (listener);
     }

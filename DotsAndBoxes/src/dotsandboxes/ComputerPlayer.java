@@ -5,14 +5,14 @@ package dotsandboxes;
  */
 public class ComputerPlayer extends Player
 {
-    public ComputerPlayer(String username, int id){
-        super(username,id);
-
+    public ComputerPlayer(String username, int id)
+    {
+        super(username, id);
     }
+
     @Override
     public void yourTurn()
     {
-
     }
 
 }

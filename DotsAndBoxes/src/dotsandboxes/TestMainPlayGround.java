@@ -5,31 +5,29 @@
  */
 package dotsandboxes;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 /**
- *
  * @author Arakis
  */
-public class TestMainPlayGround {
+public class TestMainPlayGround
+{
     public static void main(String[] args)
     {
         JFrame frame = new JFrame("PlayGround Sandbox");
         //PlayGround play = new PlayGround(4, 4);
-        
+
         TestNonsense test = new TestNonsense();
-        test.generateBoxes(4,4);
-        
-        
+        test.generateBoxes(4, 4);
+
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         //frame.add(play);
         //play.generatePlayGround();
         frame.pack();
         frame.setVisible(true);
-        
+
         //frame.pack();
     }
 }

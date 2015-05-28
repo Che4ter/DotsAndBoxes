@@ -6,16 +6,17 @@
 package dotsandboxes;
 
 /**
- *
  * @author mario_000
  */
-public class DotsAndBoxes {
+public class DotsAndBoxes
+{
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         Controller controller1 = new Controller();
     }
-    
+
 }

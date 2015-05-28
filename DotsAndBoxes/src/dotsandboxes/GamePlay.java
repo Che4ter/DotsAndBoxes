@@ -8,12 +8,12 @@ package dotsandboxes;
 import javax.swing.*;
 
 /**
- *
  * @author mario_000
  */
 
-public class GamePlay implements MadeMoveListener{
-    
+public class GamePlay implements MadeMoveListener
+{
+
     //Field
     private PlayGround playGroundPanel;
     private Box[][] arrBoxes;
@@ -25,11 +25,11 @@ public class GamePlay implements MadeMoveListener{
 
 
     public GamePlay(String pPlayerName1, String pPlayerName2, int pX, int pY)
-    {    
+    {
         players = new Player[2];
         players[0] = new LocalPlayer(pPlayerName1, 1); //lokaler Spieler
         players[1] = new LocalPlayer(pPlayerName2, 2);
-        
+
         //Generiere Box-Array
         this.arrBoxes = generateBoxArray(pX, pY);
         playGroundPanel = new PlayGround(this.arrBoxes, players[0]);
@@ -39,20 +39,20 @@ public class GamePlay implements MadeMoveListener{
         activePlayer = 1; //startet immer mit Spieler 2
         players[0].addMadeMoveListener(this);
         players[1].addMadeMoveListener(this);
-        changePlayer();           
+        changePlayer();
     } //-- GamePlay()
-    
+
 
     public void changePlayer()
     {
-        if(this.activePlayer == 1)
+        if (this.activePlayer == 1)
         {
             players[0].setActive(false);
             players[1].setActive(true);
             this.activePlayer = 2;
-            playGroundPanel.addMouseListener((LocalPlayer)players[1]);
-            playGroundPanel.removeMouseListener((LocalPlayer)players[0]);
-            System.out.println("change from 1 to 2");         
+            playGroundPanel.addMouseListener((LocalPlayer) players[1]);
+            playGroundPanel.removeMouseListener((LocalPlayer) players[0]);
+            System.out.println("change from 1 to 2");
             infoPanel.changeNextPlayer();
         }
         else
@@ -60,20 +60,20 @@ public class GamePlay implements MadeMoveListener{
             players[0].setActive(true);
             players[1].setActive(false);
             this.activePlayer = 1;
-            playGroundPanel.addMouseListener((LocalPlayer)players[0]);
-            playGroundPanel.removeMouseListener((LocalPlayer)players[1]);
-            System.out.println("change from 2 to 1");          
+            playGroundPanel.addMouseListener((LocalPlayer) players[0]);
+            playGroundPanel.removeMouseListener((LocalPlayer) players[1]);
+            System.out.println("change from 2 to 1");
             infoPanel.changeNextPlayer();
         }
     } //-- changePlayer()
-    
-    
+
+
     public void updatePoints()
     {
-        int i = players[activePlayer -1].getPoints();
-        infoPanel.updatePointsLabel(Integer.toString(i)) ;
+        int i = players[activePlayer - 1].getPoints();
+        infoPanel.updatePointsLabel(Integer.toString(i));
     } //-- updatePoints()
-  
+
     public PlayGround getPlayGroundPanel()
     {
         return playGroundPanel;
@@ -83,14 +83,14 @@ public class GamePlay implements MadeMoveListener{
     {
         return informationPanel;
     } //-- getinformationPanel()
-    
+
     @Override
     public void nextMove(final int newPosX, final int newPosY, int id)
     {
         System.out.println("nextMoveID" + id);
-        if(id == this.activePlayer)
+        if (id == this.activePlayer)
         {
-            boolean bPlayerHasClickedANeutralLine = false;            
+            boolean bPlayerHasClickedANeutralLine = false;
             boolean bPlayerHasFilledABox = false;
 
             //First check Lines
@@ -100,7 +100,7 @@ public class GamePlay implements MadeMoveListener{
                 {
                     Line clickedLine = box.getLineIfClicked(newPosX, newPosY, playGroundPanel.getDotRadius());
 
-                    if(clickedLine != null && clickedLine.getOwner() == 0)
+                    if (clickedLine != null && clickedLine.getOwner() == 0)
                     {
                         bPlayerHasClickedANeutralLine = true;
                         clickedLine.setOwner(activePlayer);
@@ -108,14 +108,14 @@ public class GamePlay implements MadeMoveListener{
                 } //-- for()
             } //-- for()
 
-            if(bPlayerHasClickedANeutralLine)
+            if (bPlayerHasClickedANeutralLine)
             {
                 //Now check boxes
                 for (Box[] arrBoxes : this.arrBoxes)
                 {
                     for (Box box : arrBoxes)
                     {
-                        if(box.isFull() && box.getOwner() == 0)
+                        if (box.isFull() && box.getOwner() == 0)
                         {
                             bPlayerHasFilledABox = true;
                             box.setOwner(activePlayer);
@@ -124,12 +124,14 @@ public class GamePlay implements MadeMoveListener{
                 } //-- for()
             }
 
-            if(bPlayerHasClickedANeutralLine && !bPlayerHasFilledABox)
+            if (bPlayerHasClickedANeutralLine && !bPlayerHasFilledABox)
+            {
                 changePlayer();
+            }
 
             players[0].setPoints(playGroundPanel.getBoxCountByOwner(1));
             players[1].setPoints(playGroundPanel.getBoxCountByOwner(2));
-            
+
             playGroundPanel.repaint();
             updatePoints();
             //infoPanel.repaint();
@@ -138,13 +140,14 @@ public class GamePlay implements MadeMoveListener{
         {
             System.out.println("player" + id + "not active");
         }
-        
-        if(isFinished()){
-            gameFinished();            
+
+        if (isFinished())
+        {
+            gameFinished();
         }
     } //-- nextMove()
-    
-    
+
+
     /**
      * Counts neutral sides of the box
      *
@@ -158,21 +161,21 @@ public class GamePlay implements MadeMoveListener{
         //Generiere zuerst die Boxen
         Box[][] boxes = new Box[pBoxCountY][pBoxCountX];
 
-        for(int y = 0; y < pBoxCountY; y++)
+        for (int y = 0; y < pBoxCountY; y++)
         {
-            for(int x = 0; x < pBoxCountX; x++)
+            for (int x = 0; x < pBoxCountX; x++)
             {
                 boxes[y][x] = new Box();
             } //-- for()
         } //-- for()
-        
+
         //Befülle nun die Boxen mit den Linien
-        for(int y = 0; y < pBoxCountY; y++)
+        for (int y = 0; y < pBoxCountY; y++)
         {
-            for(int x = 0; x < pBoxCountX; x++)
+            for (int x = 0; x < pBoxCountX; x++)
             {
                 //Horizontale Linien
-                if(y == 0) //Erste Reihe
+                if (y == 0) //Erste Reihe
                 {
                     boxes[y][x].addTopLine(new Line());
                 }
@@ -182,12 +185,14 @@ public class GamePlay implements MadeMoveListener{
                     boxes[y - 1][x].addBottomLine(newHLine);
                     boxes[y][x].addTopLine(newHLine);
 
-                    if(y == pBoxCountY - 1) //Letzte Reihe
+                    if (y == pBoxCountY - 1) //Letzte Reihe
+                    {
                         boxes[y][x].addBottomLine(new Line());
+                    }
                 }
 
                 //Vertikale Linien
-                if(x == 0) //Erste Reihe
+                if (x == 0) //Erste Reihe
                 {
                     boxes[y][x].addLeftLine(new Line());
                 }
@@ -196,51 +201,65 @@ public class GamePlay implements MadeMoveListener{
                     Line newVLine = new Line();
                     boxes[y][x - 1].addRightLine(newVLine);
                     boxes[y][x].addLeftLine(newVLine);
-                    
-                    if(x == pBoxCountX - 1) //Letzte Reihe
+
+                    if (x == pBoxCountX - 1) //Letzte Reihe
+                    {
                         boxes[y][x].addRightLine(new Line());
+                    }
                 }
             } //-- for()
         } //-- for()
-        
+
         return boxes;
     } //-- generateBoxArray()
-    
-    public boolean isFinished(){
-    
+
+    public boolean isFinished()
+    {
+
         boolean finished = true;
-        for (Box[] arrBoxes : this.arrBoxes){
-             for(Box box : arrBoxes){
-                 if(!box.isFull()){
+        for (Box[] arrBoxes : this.arrBoxes)
+        {
+            for (Box box : arrBoxes)
+            {
+                if (!box.isFull())
+                {
                     finished = false;
-                 }
-             }
+                }
+            }
         }
-        
-     return finished;
+
+        return finished;
     }
-    
-    public void gameFinished(){
+
+    public void gameFinished()
+    {
         finishedListener.GameFinished();
     }
-    
-    public String getWinner(){
-    
-        if(players[0].getPoints() != players[1].getPoints()){
-            if(players[0].getPoints() > players[1].getPoints()){
-                return "Gewonnen hat " + players[0].username + " mit " +  players[0].getPoints() + " Punkten";
-            } else{
-            
-                return "Gewonnen hat " + players[1].username + " mit " +  players[1].getPoints() + " Punkten";
+
+    public String getWinner()
+    {
+
+        if (players[0].getPoints() != players[1].getPoints())
+        {
+            if (players[0].getPoints() > players[1].getPoints())
+            {
+                return "Gewonnen hat " + players[0].username + " mit " + players[0].getPoints() + " Punkten";
             }
-        }else{
+            else
+            {
+
+                return "Gewonnen hat " + players[1].username + " mit " + players[1].getPoints() + " Punkten";
+            }
+        }
+        else
+        {
             return "Unentschieden";
         }
-        
     }
-    
-    public void AddgameFinishedListener(GameFinishedListener e){
-    
+
+    public void AddgameFinishedListener(GameFinishedListener e)
+    {
+
         finishedListener = e;
     }
 }

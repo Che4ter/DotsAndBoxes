@@ -6,11 +6,11 @@
 package dotsandboxes;
 
 /**
- *
  * @author mario_000
  */
-public interface MadeMoveListener {
-    
-    public void nextMove(int x,  int y, int id); 
-    
+public interface MadeMoveListener
+{
+
+    public void nextMove(int x, int y, int id);
+
 }

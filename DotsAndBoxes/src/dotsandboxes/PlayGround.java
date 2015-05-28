@@ -5,97 +5,93 @@
  */
 package dotsandboxes;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 /**
- *
  * @author Arakis
  */
 
-public class PlayGround extends JPanel{
+public class PlayGround extends JPanel
+{
     //Field
     private final int pxPadding = 20;
     private final int pxDotDiameter = 18;
     private final int pxLineHeight = 12;
     private final int pxLineWidth = 80;
     private Box[][] arrBoxes;
-    private boolean clearPanel=false;
+    private boolean clearPanel = false;
 
     //Konstruktor
-    public PlayGround (final Box[][] newBoxArray, Player p)
+    public PlayGround(final Box[][] newBoxArray, Player p)
     {
         this.arrBoxes = newBoxArray;
         this.setPreferredSize(new Dimension(this.getWidth(newBoxArray[0].length), this.getHeight(newBoxArray.length)));
     } //-- PlayGround()
-    
 
-     /**
+
+    /**
      * Calculates and sets the coordinates for every line
      *
      * @author Adrian Kauz
      */
     public void setCoordsAndSize()
     {
-        for(int y = 0; y < this.arrBoxes.length; y++)
+        for (int y = 0; y < this.arrBoxes.length; y++)
         {
-            for(int x = 0; x < this.arrBoxes[y].length; x++)
+            for (int x = 0; x < this.arrBoxes[y].length; x++)
             {
                 //Set coordinates for horizontal lines
-                if(y == 0) //First Row
+                if (y == 0) //First Row
                 {
                     this.arrBoxes[y][x].getTopLine().setCoords(this.pxPadding + (x * pxLineWidth),
-                                                               this.pxPadding - (this.pxLineHeight / 2), 
-                                                               this.pxLineWidth ,
-                                                               this.pxLineHeight);
-                    
+                            this.pxPadding - (this.pxLineHeight / 2),
+                            this.pxLineWidth,
+                            this.pxLineHeight);
+
                     this.arrBoxes[y][x].getBottomLine().setCoords(this.pxPadding + (x * pxLineWidth),
-                                                                  this.pxPadding + (pxLineWidth) - (this.pxLineHeight / 2),
-                                                                  this.pxLineWidth ,
-                                                                  this.pxLineHeight);
+                            this.pxPadding + (pxLineWidth) - (this.pxLineHeight / 2),
+                            this.pxLineWidth,
+                            this.pxLineHeight);
                 }
                 else
                 {
                     this.arrBoxes[y][x].getBottomLine().setCoords(this.pxPadding + (x * pxLineWidth),
-                                                                  this.pxPadding + ((y + 1) * pxLineWidth) - (this.pxLineHeight / 2),
-                                                                  this.pxLineWidth,
-                                                                  this.pxLineHeight);
+                            this.pxPadding + ((y + 1) * pxLineWidth) - (this.pxLineHeight / 2),
+                            this.pxLineWidth,
+                            this.pxLineHeight);
                 }
-                
+
                 //Set coordinates for vertical lines
-                if(x == 0)
+                if (x == 0)
                 {
                     this.arrBoxes[y][x].getLeftLine().setCoords(this.pxPadding + (x * pxLineWidth) - (this.pxLineHeight / 2),
-                                                                this.pxPadding + (y * pxLineWidth),
-                                                                this.pxLineHeight,
-                                                                this.pxLineWidth);
+                            this.pxPadding + (y * pxLineWidth),
+                            this.pxLineHeight,
+                            this.pxLineWidth);
                 }
-                
+
                 this.arrBoxes[y][x].getRightLine().setCoords(this.pxPadding + ((x + 1) * pxLineWidth) - (this.pxLineHeight / 2),
-                                                             this.pxPadding + (y * pxLineWidth),
-                                                             this.pxLineHeight,
-                                                             this.pxLineWidth);
+                        this.pxPadding + (y * pxLineWidth),
+                        this.pxLineHeight,
+                        this.pxLineWidth);
             } //-- for()
         } //-- for()
     } //-- setCoordsAndSize()
 
-    
+
     public void repaintPlayGround()
     {
         this.repaint();
     } //-- repaintPlayGround()
-    
-    
+
+
     public int getDotRadius()
     {
         return this.pxDotDiameter / 2;
     } //-- getDotRadius()
-    
-    
+
+
     /**
      * Counts every box witch belongs to submitted owner nr
      *
@@ -106,20 +102,22 @@ public class PlayGround extends JPanel{
     public int getBoxCountByOwner(final int newOwnerNr)
     {
         int count = 0;
-        
+
         for (Box[] arrBoxes : this.arrBoxes)
         {
             for (Box box : arrBoxes)
             {
-                if(box.getOwner() == newOwnerNr)
+                if (box.getOwner() == newOwnerNr)
+                {
                     count++;
+                }
             } //-- for()
         } //-- for()
-        
+
         return count;
     } //-- getBoxCountByOwner()
-    
-    
+
+
     /**
      * Draw all Lines and Dots
      *
@@ -138,8 +136,12 @@ public class PlayGround extends JPanel{
 
             //Draw boxes
             for (Box[] arrBoxes : this.arrBoxes)
+            {
                 for (Box box : arrBoxes)
+                {
                     box.draw(g2);
+                }
+            }
 
             //Draw lines
             for (int y = 0; y < this.arrBoxes.length; y++)
@@ -148,13 +150,17 @@ public class PlayGround extends JPanel{
                 {
                     //Draw horizontal lines
                     if (y == 0)
+                    {
                         this.arrBoxes[y][x].getTopLine().draw(g2);
+                    }
 
                     this.arrBoxes[y][x].getBottomLine().draw(g2);
 
                     //Draw vertical lines
                     if (x == 0)
+                    {
                         this.arrBoxes[y][x].getLeftLine().draw(g2);
+                    }
 
                     this.arrBoxes[y][x].getRightLine().draw(g2);
                 } //-- for()
@@ -177,8 +183,8 @@ public class PlayGround extends JPanel{
             } //-- for()
         } //-- paintComponent()
     }
-    
-    
+
+
     /**
      * Get panel width in pixel
      *
@@ -190,8 +196,8 @@ public class PlayGround extends JPanel{
     {
         return (2 * this.pxPadding) + (newBoxCountX * pxLineWidth);
     } //-- getWidth()
-    
-    
+
+
     /**
      * Get panel height in pixel
      *
@@ -206,9 +212,9 @@ public class PlayGround extends JPanel{
 
     public void clearPlayGround()
     {
-        clearPanel=true;
+        clearPanel = true;
         this.removeAll();
         this.repaintPlayGround();
-        clearPanel=false;
+        clearPanel = false;
     }
- }
+}

@@ -12,10 +12,10 @@ public class Server extends Thread
 {
 
     private final String SERVER_IP = "127.0.0.1";
+    public ServerRequestHandler mClient;
     private int mServerPort = 1337;
     private ServerSocket mServerSocket;
     private boolean mRunning = false;
-    public ServerRequestHandler mClient;
 
     public Server(int pPort)
     {
@@ -28,8 +28,7 @@ public class Server extends Thread
         {
             mServerSocket = new ServerSocket(mServerPort);
             this.start();
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             e.printStackTrace();
         }

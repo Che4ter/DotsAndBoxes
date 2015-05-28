@@ -9,10 +9,10 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- *
  * @author mario_000
  */
-public class InformationPanel {
+public class InformationPanel
+{
     private JPanel informationPanel;
     private JLabel nextMoveLabel;
     private JLabel moveP1Label;
@@ -26,21 +26,21 @@ public class InformationPanel {
 
     public InformationPanel(String pPlayerName1, String pPlayerName2)
     {
-    
-        
+
+
         informationPanel = new JPanel();
-        informationPanel.setLayout(new GridLayout(3,3));   
-        
+        informationPanel.setLayout(new GridLayout(3, 3));
+
         players = new JLabel("Players");
         points = new JLabel("Points");
-        nextMoveLabel = new JLabel ("next");
+        nextMoveLabel = new JLabel("next");
         playerLabel1 = new JLabel(pPlayerName1);
-        Font font = new Font("Courier", Font.BOLD,15);    
+        Font font = new Font("Courier", Font.BOLD, 15);
         points.setFont(font);
         players.setFont(font);
         nextMoveLabel.setFont(font);
-        moveP1Label = new JLabel(Character.toString((char)9658));
-        moveP2Label = new JLabel(Character.toString((char)9658));
+        moveP1Label = new JLabel(Character.toString((char) 9658));
+        moveP2Label = new JLabel(Character.toString((char) 9658));
         moveP2Label.setVisible(false);
         playerLabel2 = new JLabel(pPlayerName2);
         pointsPlayer1 = new JLabel("0");
@@ -55,34 +55,43 @@ public class InformationPanel {
         informationPanel.add(playerLabel2);
         informationPanel.add(pointsPlayer2);
     }
-    
-    public JPanel getinformationPanel(){
-    
+
+    public JPanel getinformationPanel()
+    {
+
         return informationPanel;
     }
-    
-    public void changeNextPlayer(){
-    
-        if( moveP2Label.isVisible() == false){
-        
+
+    public void changeNextPlayer()
+    {
+
+        if (moveP2Label.isVisible() == false)
+        {
+
             moveP1Label.setVisible(false);
             moveP2Label.setVisible(true);
-        } else{
-             
+        }
+        else
+        {
+
             moveP1Label.setVisible(true);
             moveP2Label.setVisible(false);
         }
     }
-    
-    public void updatePointsLabel(String points){
-    
-        if( moveP2Label.isVisible() == false){
-        
+
+    public void updatePointsLabel(String points)
+    {
+
+        if (moveP2Label.isVisible() == false)
+        {
+
             pointsPlayer1.setText(points);
-        } else{
+        }
+        else
+        {
             pointsPlayer2.setText(points);
         }
-        
+
         informationPanel.repaint();
     }
 }

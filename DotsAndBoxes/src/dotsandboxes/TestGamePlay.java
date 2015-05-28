@@ -6,12 +6,13 @@
 package dotsandboxes;
 
 /**
- *
  * @author mario_000
  */
-public class TestGamePlay {
-        public static void main(String[] args) {
-            // GamePlay game1 = new GamePlay();
+public class TestGamePlay
+{
+    public static void main(String[] args)
+    {
+        // GamePlay game1 = new GamePlay();
 
-    }  
+    }
 }

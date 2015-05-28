@@ -9,24 +9,24 @@ import java.awt.event.MouseListener;
 public class LocalPlayer extends Player implements MouseListener
 {
 
-    public LocalPlayer(String username, int id){
-        super(username,id);
+    public LocalPlayer(String username, int id)
+    {
+        super(username, id);
 
     }
 
 
     @Override
-    public void mousePressed(MouseEvent e) {
+    public void mousePressed(MouseEvent e)
+    {
 
-        if(active){
+        if (active)
+        {
             System.out.println("mousepressed" + userid);
             makeMove(e.getX(), e.getY());
 
         }
     }
-
-
-
 
 
     @Override

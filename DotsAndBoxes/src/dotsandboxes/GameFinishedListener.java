@@ -6,10 +6,9 @@
 package dotsandboxes;
 
 /**
- *
  * @author mario_000
  */
-public interface GameFinishedListener {
-    
+public interface GameFinishedListener
+{
     public void GameFinished();
 }
