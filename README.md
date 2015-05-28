@@ -1,2 +1,2 @@
 # DotsAndBoxes
-Students Dots and Boxes
+HSLU PRG2 Projekt
